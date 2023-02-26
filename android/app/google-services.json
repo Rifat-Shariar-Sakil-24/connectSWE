@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1044864431167",
+    "project_id": "connectswe-9ce91",
+    "storage_bucket": "connectswe-9ce91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044864431167:android:ad033546cdc93f27fd348a",
+        "android_client_info": {
+          "package_name": "com.example.connectswe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044864431167-6sh6niqbkf97l94uegthoa2d7jpaarof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmcXH-63dA34cjqZZCGYgSpjY3PxkviBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044864431167-6sh6niqbkf97l94uegthoa2d7jpaarof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
