@@ -24,6 +24,7 @@ class SplashServices{
     if(result == ConnectivityResult.wifi || result == ConnectivityResult.mobile) ActiveConnection = true;
 
     bool timeOverflow = false;
+    //
 
 
 
