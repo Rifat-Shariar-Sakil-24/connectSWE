@@ -39,7 +39,7 @@ late DateTime _endDate;
 late TimeOfDay _endTime;
 bool _isAllDay = false;
 String _subject = '';
-String _notes = '';
+//String _notes = '';
 //String _recurrenceRule = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
@@ -50,9 +50,13 @@ class _PostScreenState2 extends State<PostScreen2> {
   late List <Meeting> appointments;
   CalendarController calendarController = CalendarController();
 
-  late MeetingDataSource _events;
-  late List<Appointment> _courses;
-  late List<CalendarResource> _courseTeachers;
+
+  //late List<Appointment> _courses;
+  //late List<CalendarResource> _courseTeachers;
+
+  //late MeetingDataSource _events;
+  //late List<Appointment> _courses;
+  //late List<CalendarResource> _courseTeachers;
   late List<TimeRegion> _specialTimeRegion;
 
   @override
@@ -61,10 +65,12 @@ class _PostScreenState2 extends State<PostScreen2> {
     addSpecialRegion();
     _events = MeetingDataSource(appointments);
     _selectedAppointment = null;
-    _selectedColorIndex = 0;
-    _selectedTimeZoneIndex = 0;
+
+    //_selectedColorIndex = 0;
+    //_selectedTimeZoneIndex = 0;
+
     _subject = '';
-    _notes = '';
+    //_notes = '';
     //_recurrenceRule = '';
     super.initState();
   }
@@ -72,6 +78,7 @@ class _PostScreenState2 extends State<PostScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Calendar'),
@@ -88,21 +95,33 @@ class _PostScreenState2 extends State<PostScreen2> {
       CalendarTapCallback calendarTapCallback){
 
     return SfCalendar(
-      onTap: onCalendarTapped,
+
       view: CalendarView.week,
+      dataSource: _calendarDataSource,
+      specialRegions: _specialTimeRegion,
+
+      onTap: calendarTapCallback,
+      //allowedViews: const [CalendarView.week, CalendarView.timelineWeek],
       controller: calendarController,
+
       timeSlotViewSettings: TimeSlotViewSettings(
           startHour: 8, endHour: 17, timeFormat: 'h:mm',
           timeInterval: Duration(minutes: 30,)),
       todayHighlightColor: Colors.green[500],
-      appointmentTextStyle: TextStyle(
-        color: Colors.white,
-        fontSize: 13.5,
-        fontWeight: FontWeight.bold,
-      ),
 
-      dataSource: _calendarDataSource,
-      specialRegions: _specialTimeRegion,
+      appointmentBuilder: (context, details){
+        final Meeting meeting = details.appointments.first;
+        return Container(
+          color: Colors.redAccent,
+          child: Text(meeting.eventName,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13.5,
+            fontWeight: FontWeight.bold,
+          ),),
+        );
+
+      },
     );
 
   }
@@ -117,17 +136,13 @@ class _PostScreenState2 extends State<PostScreen2> {
     setState(() {
       _selectedAppointment = null;
       _isAllDay = false;
-      _selectedColorIndex = 0;
-      _selectedTimeZoneIndex = 0;
+      //_selectedColorIndex = 0;
+      //_selectedTimeZoneIndex = 0;
       _subject = '';
-      _notes = '';
+      //_notes = '';
       //_recurrenceRule = '';
 
-      if (calendarController.view == CalendarView.month) {
-        calendarController.view = CalendarView.day;
-      }
-      else {
-        if (details.appointments != null &&
+      if (details.appointments != null &&
             details.appointments!.length == 1) {
           final Meeting meetingDetails = details.appointments![0];
           _startDate = meetingDetails.from;
@@ -135,7 +150,7 @@ class _PostScreenState2 extends State<PostScreen2> {
           _isAllDay = meetingDetails.isAllDay;
           _subject = meetingDetails.eventName == '(No Title)' ?
           '' : meetingDetails.eventName;
-          _notes = meetingDetails.description;
+          //_notes = meetingDetails.description;
           _selectedAppointment = meetingDetails;
           //_recurrenceRule = _recurrenceRule;
         }
@@ -265,7 +280,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       //   }
       // }
 
-    });
+    );
   }
 
   void addSpecialRegion() {
@@ -336,17 +351,17 @@ class MeetingDataSource extends CalendarDataSource{
   @override
   String getSubject(int index) => appointments![index].eventName;
 
-  @override
-  String getStartTimeZone(int index) => appointments![index].startTimeZone;
+  //@override
+  //String getStartTimeZone(int index) => appointments![index].startTimeZone;
 
-  @override
-  String getNotes(int index) => appointments![index].description;
+  //@override
+ // String getNotes(int index) => appointments![index].description;
 
-  @override
-  String getEndTimeZone(int index) => appointments![index].endTimeZone;
+  //@override
+  //String getEndTimeZone(int index) => appointments![index].endTimeZone;
 
-  @override
-  Color getColor(int index) => appointments![index].background;
+  //@override
+  //Color getColor(int index) => appointments![index].background;
 
   @override
   DateTime getStartTime(int index) => appointments![index].from;
@@ -366,9 +381,9 @@ class Meeting {
         this.background = Colors.green,
         this.isAllDay = false,
         this.eventName = '',
-        this.startTimeZone = '',
-        this.endTimeZone = '',
-        this.description = '',
+        //this.startTimeZone = '',
+        //this.endTimeZone = '',
+        //this.description = '',
         //this.recurrenceRule =''
       });
 
@@ -377,8 +392,9 @@ class Meeting {
   final DateTime to;
   final Color background;
   final bool isAllDay;
-  final String startTimeZone;
-  final String endTimeZone;
-  final String description;
-//final String? recurrenceRule;
+  //final String startTimeZone;
+  //final String endTimeZone;
+  //final String description;
+  //final String? recurrenceRule;
+
 }

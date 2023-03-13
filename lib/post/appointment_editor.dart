@@ -272,8 +272,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
               Navigator.of(context).pop();
             },
             child: Text('Close'),),
-
-
         ],
       ),
     );
@@ -312,24 +310,22 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                       _events.notifyListeners(CalendarDataSourceAction.remove,
                           <Meeting>[]..add(_selectedAppointment!));
                     }
-
                     meetings.add(Meeting(
                       from: _startDate,
                       to: _endDate,
                       background: Colors.redAccent,
-                      description: _notes,
+                      //description: _notes,
                       isAllDay: _isAllDay,
-                      eventName: _subject == ''?'(No Title)' : _subject,
+                      eventName: _subject == '' ? '(No Title)' : _subject,
                       //recurrenceRule:
                     ));
 
                     _events.appointments!.add(meetings[0]);
-
-                    _events.notifyListeners(CalendarDataSourceAction.add, meetings);
+                    _events.notifyListeners(
+                        CalendarDataSourceAction.add, meetings);
                     _selectedAppointment = null;
 
                     Navigator.pop(context);
-
                   },
                 )
               ]
@@ -343,8 +339,9 @@ class AppointmentEditorState extends State<AppointmentEditor>{
           FloatingActionButton(
             onPressed: (){
               if (_selectedAppointment != null){
-                _events.appointments!.removeAt(_events.appointments!
-                    .indexOf(_selectedAppointment));
+                _events.appointments!.removeAt(
+                    _events.appointments!.indexOf(_selectedAppointment));
+
                 _events.notifyListeners(CalendarDataSourceAction.remove,
                     <Meeting>[]..add(_selectedAppointment!));
                 _selectedAppointment = null;
@@ -361,6 +358,5 @@ class AppointmentEditorState extends State<AppointmentEditor>{
   }
 
   String getTile() {
-    return _subjectText.isEmpty ? 'New Event' : 'Event Details';
-  }
-}
+    return _subject.isEmpty ? 'New Event' : 'Event Details';
+} }
