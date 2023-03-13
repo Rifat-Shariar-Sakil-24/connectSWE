@@ -267,13 +267,11 @@ class AppointmentEditorState extends State<AppointmentEditor>{
             thickness: 0.5,
           ),
 
-          // new TextButton(
-          //   onPressed: (){
-          //     Navigator.of(context).pop();
-          //   },
-          //   child: Text('Close'),),
-
-
+          new TextButton(
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+            child: Text('Close'),),
         ],
       ),
     );
@@ -283,7 +281,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
   Widget build(BuildContext context) {
 
     return MaterialApp(
-        //debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
               toolbarHeight: 45,
@@ -307,8 +305,8 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                   onPressed: (){
                     final List<Meeting> meetings = <Meeting>[];
                     if (_selectedAppointment != null){
-                      _events.appointments!.removeAt(
-                          _events.appointments!.indexOf(_selectedAppointment));
+                      _events.appointments!.removeAt(_events.appointments!
+                          .indexOf(_selectedAppointment));
                       _events.notifyListeners(CalendarDataSourceAction.remove,
                           <Meeting>[]..add(_selectedAppointment!));
                     }
@@ -323,7 +321,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     ));
 
                     _events.appointments!.add(meetings[0]);
-
                     _events.notifyListeners(
                         CalendarDataSourceAction.add, meetings);
                     _selectedAppointment = null;
@@ -344,6 +341,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
               if (_selectedAppointment != null){
                 _events.appointments!.removeAt(
                     _events.appointments!.indexOf(_selectedAppointment));
+
                 _events.notifyListeners(CalendarDataSourceAction.remove,
                     <Meeting>[]..add(_selectedAppointment!));
                 _selectedAppointment = null;
@@ -361,5 +359,4 @@ class AppointmentEditorState extends State<AppointmentEditor>{
 
   String getTile() {
     return _subject.isEmpty ? 'New Event' : 'Event Details';
-  }
-}
+} }

@@ -39,7 +39,7 @@ late DateTime _endDate;
 late TimeOfDay _endTime;
 bool _isAllDay = false;
 String _subject = '';
-String _notes = '';
+//String _notes = '';
 //String _recurrenceRule = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
@@ -50,6 +50,11 @@ class _PostScreenState2 extends State<PostScreen2> {
   late List <Meeting> appointments;
   CalendarController calendarController = CalendarController();
 
+
+  //late List<Appointment> _courses;
+  //late List<CalendarResource> _courseTeachers;
+
+  //late MeetingDataSource _events;
   //late List<Appointment> _courses;
   //late List<CalendarResource> _courseTeachers;
   late List<TimeRegion> _specialTimeRegion;
@@ -60,10 +65,12 @@ class _PostScreenState2 extends State<PostScreen2> {
     addSpecialRegion();
     _events = MeetingDataSource(appointments);
     _selectedAppointment = null;
+
     //_selectedColorIndex = 0;
     //_selectedTimeZoneIndex = 0;
+
     _subject = '';
-    _notes = '';
+    //_notes = '';
     //_recurrenceRule = '';
     super.initState();
   }
@@ -88,6 +95,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       CalendarTapCallback calendarTapCallback){
 
     return SfCalendar(
+
       view: CalendarView.week,
       dataSource: _calendarDataSource,
       specialRegions: _specialTimeRegion,
@@ -131,9 +139,10 @@ class _PostScreenState2 extends State<PostScreen2> {
       //_selectedColorIndex = 0;
       //_selectedTimeZoneIndex = 0;
       _subject = '';
-      _notes = '';
+      //_notes = '';
       //_recurrenceRule = '';
-        if (details.appointments != null &&
+
+      if (details.appointments != null &&
             details.appointments!.length == 1) {
           final Meeting meetingDetails = details.appointments![0];
           _startDate = meetingDetails.from;
@@ -156,9 +165,9 @@ class _PostScreenState2 extends State<PostScreen2> {
         _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
         Navigator.push<Widget>(
           context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => AppointmentEditor()),
-        );
+          MaterialPageRoute(builder:
+              (BuildContext context) => AppointmentEditor()),);
+      }
 
       //   if (details.targetElement == CalendarElement.appointment ||
       //       details.targetElement == CalendarElement.agenda) {
@@ -271,7 +280,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       //   }
       // }
 
-    });
+    );
   }
 
   void addSpecialRegion() {
@@ -372,8 +381,8 @@ class Meeting {
         this.background = Colors.green,
         this.isAllDay = false,
         this.eventName = '',
-        this.startTimeZone = '',
-        this.endTimeZone = '',
+        //this.startTimeZone = '',
+        //this.endTimeZone = '',
         //this.description = '',
         //this.recurrenceRule =''
       });
@@ -383,8 +392,9 @@ class Meeting {
   final DateTime to;
   final Color background;
   final bool isAllDay;
-  final String startTimeZone;
-  final String endTimeZone;
+  //final String startTimeZone;
+  //final String endTimeZone;
   //final String description;
   //final String? recurrenceRule;
+
 }
