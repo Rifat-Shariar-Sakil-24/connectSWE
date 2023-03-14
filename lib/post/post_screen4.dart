@@ -11,23 +11,15 @@ import 'package:intl/intl.dart';
 
 import '../utils/utils.dart';
 
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:intl/intl.dart';
-
 part 'appointment_editor.dart';
 part 'color_picker.dart';
 part 'course_picker.dart';
 
-class PostScreen2 extends StatefulWidget {
-  const PostScreen2({Key? key}) : super(key: key);
+class PostScreen4 extends StatefulWidget {
+  const PostScreen4({Key? key}) : super(key: key);
 
   @override
-  State<PostScreen2> createState() => _PostScreenState2();
+  State<PostScreen4> createState() => _PostScreenState2();
 }
 
 String _subjectText = '',
@@ -55,13 +47,11 @@ String _subject = '';
 //String _notes = '';
 //String _recurrenceRule = '';
 
-class _PostScreenState2 extends State<PostScreen2> {
-
-  final databaseReference = FirebaseFirestore.instance;
+class _PostScreenState2 extends State<PostScreen4> {
 
   _PostScreenState2();
 
-  //late List<String> eventNameCollection;
+  late List<String> eventNameCollection;
   late List <Meeting> appointments;
   CalendarController calendarController = CalendarController();
 
@@ -87,20 +77,7 @@ class _PostScreenState2 extends State<PostScreen2> {
     _subject = '';
     //_notes = '';
     //_recurrenceRule = '';
-
-    getDataFromFireStore().then((results) {
-      SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
-        setState(() {});
-      });
-    });
     super.initState();
-  }
-
-  Future<void> getDataFromFireStore() async {
-    var snapShotsValue = await databaseReference
-        .collection("StoreAllCourses")
-        .get();
-
   }
 
   @override
@@ -142,19 +119,19 @@ class _PostScreenState2 extends State<PostScreen2> {
         return Container(
           color: meeting.background,
           child: Text(meeting.eventName,
-          style: TextStyle(
-            color: Colors.white,
-            shadows: <Shadow>[
-              Shadow(
-                //offset: Offset(10.0, 10.0),
-                blurRadius: 5.0,
-                //color: Color.fromARGB(255, 0, 0, 0),
-                color: Colors.black87
-              ),
-            ],
-            fontSize: 13.5,
-            fontWeight: FontWeight.bold,
-          ),),
+            style: TextStyle(
+              color: Colors.white,
+              shadows: <Shadow>[
+                Shadow(
+                  //offset: Offset(10.0, 10.0),
+                    blurRadius: 5.0,
+                    //color: Color.fromARGB(255, 0, 0, 0),
+                    color: Colors.black87
+                ),
+              ],
+              fontSize: 13.5,
+              fontWeight: FontWeight.bold,
+            ),),
         );
 
       },
@@ -179,41 +156,41 @@ class _PostScreenState2 extends State<PostScreen2> {
       //_recurrenceRule = '';
 
       if (details.appointments != null &&
-            details.appointments!.length == 1) {
-          final Meeting meetingDetails = details.appointments![0];
-          _startDate = meetingDetails.from;
-          _endDate = meetingDetails.to;
-          _isAllDay = meetingDetails.isAllDay;
-          _subject = meetingDetails.eventName == '(No Title)' ?
-          '' : meetingDetails.eventName;
-          _selectedColorIndex =
-              _colorCollection.indexOf(meetingDetails.background);
-          //_notes = meetingDetails.description;
-          _selectedAppointment = meetingDetails;
-          //_recurrenceRule = _recurrenceRule;
-        }
-
-        else {
-          final DateTime date = details.date!;
-          _startDate = date;
-          _endDate = date.add(const Duration(hours: 1));
-        }
-        _startTime =
-            TimeOfDay(hour: _startDate.hour, minute: _startDate.minute);
-        _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
-        Navigator.push<Widget>(
-          context,
-          MaterialPageRoute(builder:
-              (BuildContext context) => AppointmentEditor()),);
+          details.appointments!.length == 1) {
+        final Meeting meetingDetails = details.appointments![0];
+        _startDate = meetingDetails.from;
+        _endDate = meetingDetails.to;
+        _isAllDay = meetingDetails.isAllDay;
+        _subject = meetingDetails.eventName == '(No Title)' ?
+        '' : meetingDetails.eventName;
+        _selectedColorIndex =
+            _colorCollection.indexOf(meetingDetails.background);
+        //_notes = meetingDetails.description;
+        _selectedAppointment = meetingDetails;
+        //_recurrenceRule = _recurrenceRule;
       }
+
+      else {
+        final DateTime date = details.date!;
+        _startDate = date;
+        _endDate = date.add(const Duration(hours: 1));
+      }
+      _startTime =
+          TimeOfDay(hour: _startDate.hour, minute: _startDate.minute);
+      _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
+      Navigator.push<Widget>(
+        context,
+        MaterialPageRoute(builder:
+            (BuildContext context) => AppointmentEditor()),);
+    }
     );
   }
 
   void addSpecialRegion() {
     final DateTime date = DateTime(2023, 2, 12, 8, 0, 0);
     _specialTimeRegion = [
-      TimeRegion(startTime: DateTime(2023, 1, 8, 13, 0, 0),
-          endTime: DateTime(2023, 1, 8, 14, 0, 0),
+      TimeRegion(startTime: DateTime(2023, 2, 12, 13, 0, 0),
+          endTime: DateTime(2023, 2, 12, 14, 0, 0),
           text: 'LUNCH',
           recurrenceRule: 'FREQ=DAILY,INTERVAL=1',
           enablePointerInteraction: false)
@@ -238,15 +215,8 @@ class _PostScreenState2 extends State<PostScreen2> {
     for (int month = 0; month < 5; month++) {
       for (int day = 0; day < 30; day++) {
 
-
-
-        String dateStr = today.add(Duration(days: (month*30) + day)).toString();
-        print(dateStr);
         //monday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 1){
-
-          setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 10, 30);
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -262,10 +232,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             eventName: eventNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-
-          setDefaultRoutine(eventNameCollection[2], dateStr, 11, 0, 13, 0);
-
 
           meetingCollection.add(Meeting(
             from: today
@@ -283,9 +249,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
-          setDefaultRoutine(eventNameCollection[3], dateStr, 14, 0, 16, 0);
-
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -301,15 +264,11 @@ class _PostScreenState2 extends State<PostScreen2> {
             eventName: eventNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
         }
 
 
         //tuesday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 2){
-
-          setDefaultRoutine(eventNameCollection[2], dateStr, 12, 0, 13, 0);
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -326,8 +285,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
-
-          setDefaultRoutine(eventNameCollection[1], dateStr, 14, 0, 15, 0);
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -343,11 +300,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             eventName: eventNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-
-
-
-          setDefaultRoutine(eventNameCollection[0], dateStr, 15, 0, 17, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -369,10 +321,6 @@ class _PostScreenState2 extends State<PostScreen2> {
 
         //wednesday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 3){
-
-
-          setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 11, 0);
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -388,10 +336,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             eventName: eventNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-
-
-          setDefaultRoutine(eventNameCollection[2], dateStr, 14, 0, 17, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -429,9 +373,6 @@ class _PostScreenState2 extends State<PostScreen2> {
 
         //thursday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 4){
-
-          setDefaultRoutine(eventNameCollection[3], dateStr, 10, 30, 12, 30);
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -447,9 +388,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             eventName: eventNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-
-          setDefaultRoutine(eventNameCollection[1], dateStr, 14, 0, 15, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -487,8 +425,6 @@ class _PostScreenState2 extends State<PostScreen2> {
 
         //sunday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 7){
-          setDefaultRoutine(eventNameCollection[1], dateStr, 10, 0, 11, 30);
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -505,9 +441,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
-
-          setDefaultRoutine(eventNameCollection[0], dateStr, 12, 0, 13, 0);
-
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -523,11 +456,6 @@ class _PostScreenState2 extends State<PostScreen2> {
             eventName: eventNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-
-
-
-          setDefaultRoutine(eventNameCollection[3], dateStr, 15, 0, 16, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -546,38 +474,8 @@ class _PostScreenState2 extends State<PostScreen2> {
           ));
         }
 
-        }}
+      }}
     return meetingCollection;
-  }
-
-  void setDefaultRoutine(String eInd, String  dateString, int SH, int SM, int EH, int EM) {
-
-    databaseReference.collection("StoreAllCourses").doc(eInd).collection("Dates").doc(dateString).collection("Start").doc("starttime").collection("Hours").doc("hours").
-    set({
-      'h': SH
-    }
-    );
-
-
-    databaseReference.collection("StoreAllCourses").doc(eInd).collection("Dates").doc(dateString).collection("Start").doc("starttime").collection("Minutes").doc("minutes").
-    set({
-      'm': SM
-    }
-    );
-
-
-    databaseReference.collection("StoreAllCourses").doc(eInd).collection("Dates").doc(dateString).collection("End").doc("endtime").collection("Hours").doc("hours").
-    set({
-      'h': EH
-    }
-    );
-
-    databaseReference.collection("StoreAllCourses").doc(eInd).collection("Dates").doc(dateString).collection("End").doc("endtime").collection("Minutes").doc("minutes").
-    set({
-      'h': EM
-    }
-    );
-
   }
 
 
@@ -598,7 +496,7 @@ class MeetingDataSource extends CalendarDataSource{
   //String getStartTimeZone(int index) => appointments![index].startTimeZone;
 
   //@override
- // String getNotes(int index) => appointments![index].description;
+  // String getNotes(int index) => appointments![index].description;
 
   //@override
   //String getEndTimeZone(int index) => appointments![index].endTimeZone;
@@ -612,8 +510,8 @@ class MeetingDataSource extends CalendarDataSource{
   @override
   DateTime getEndTime(int index) => appointments![index].to;
 
-  //@override
-  //String getRecurrenceRule(int index) => appointments![index].recurrenceRule;
+//@override
+//String getRecurrenceRule(int index) => appointments![index].recurrenceRule;
 
 }
 
@@ -635,9 +533,9 @@ class Meeting {
   final DateTime to;
   final Color background;
   final bool isAllDay;
-  //final String startTimeZone;
-  //final String endTimeZone;
-  //final String description;
-  //final String? recurrenceRule;
+//final String startTimeZone;
+//final String endTimeZone;
+//final String description;
+//final String? recurrenceRule;
 
 }
