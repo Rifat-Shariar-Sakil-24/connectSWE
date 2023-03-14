@@ -16,6 +16,26 @@ class AppointmentEditorState extends State<AppointmentEditor>{
       child: ListView(
         children: [
 
+          // ListTile(
+          //   contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+          //   // leading: Icon(Icons.lens,
+          //   //     color: _colorCollection[_selectedColorIndex]),
+          //   title: Text(_subject),
+          //   onTap: () {
+          //     // for(int i = 0; i < eventNameCollection.length; i++){
+          //     //   if(_subject == eventNameCollection[i])
+          //     //     eventNameIndex = i;
+          //     // }
+          //     showDialog<Widget>(
+          //       context: context,
+          //       barrierDismissible: true,
+          //       builder: (BuildContext context) {
+          //         return _CoursePicker();
+          //       },
+          //     ).then((dynamic value) => setState(() {}));
+          //   },
+          // ),
+
           ListTile(
             title: TextField(
               controller: TextEditingController(
@@ -267,6 +287,24 @@ class AppointmentEditorState extends State<AppointmentEditor>{
             thickness: 0.5,
           ),
 
+          ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            leading: Icon(Icons.lens,
+                color: _colorCollection[_selectedColorIndex]),
+            title: Text(
+              _colorNames[_selectedColorIndex],
+            ),
+            onTap: () {
+              showDialog<Widget>(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return _ColorPicker();
+                },
+              ).then((dynamic value) => setState(() {}));
+            },
+          ),
+
           new TextButton(
             onPressed: (){
               Navigator.of(context).pop();
@@ -286,7 +324,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
           appBar: AppBar(
               toolbarHeight: 45,
               title: Text(getTile(),),
-              backgroundColor: Colors.redAccent,
+              backgroundColor: _colorCollection[_selectedColorIndex],
 
               leading: IconButton(
                 icon: const Icon(
@@ -348,7 +386,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     meetings.add(Meeting(
                       from: _startDate,
                       to: _endDate,
-                      background: Colors.redAccent,
+                      background: _colorCollection[_selectedColorIndex],
                       //description: _notes,
                       isAllDay: _isAllDay,
                       eventName: _subject == '' ? '(No Title)' : _subject,
