@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:connectswe/post/post_screen.dart';
 import 'package:connectswe/post/post_screen2.dart';
+import 'package:connectswe/post/post_screen3.dart';
 import 'package:connectswe/screen/login_signup.dart';
 import 'package:connectswe/ui/auth/login_screen.dart';
 import 'package:flutter/cupertino.dart';

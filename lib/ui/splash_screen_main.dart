@@ -32,9 +32,6 @@ class _SplashScreenMainState extends State<SplashScreenMain> {
     super.initState();
 
 
-
-
-
   }
   @override
   Widget build(BuildContext context) {
