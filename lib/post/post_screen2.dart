@@ -12,6 +12,8 @@ import 'package:intl/intl.dart';
 import '../utils/utils.dart';
 
 part 'appointment_editor.dart';
+part 'color_picker.dart';
+part 'course_picker.dart';
 
 part 'color_picker.dart';
 part 'course_picker.dart';
@@ -30,6 +32,8 @@ String _subjectText = '',
     _timeDetails = '';
 
 List<Color> _colorCollection = <Color>[];
+late List<String> eventNameCollection = <String>[];
+
 List<String> _colorNames = <String>[];
 List<String> eventNameCollection = <String>[];
 int _selectedColorIndex = 0;
