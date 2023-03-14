@@ -39,33 +39,29 @@ class AppointmentEditorState extends State<AppointmentEditor>{
             },
           ),
 
-          // ListTile(
-          //   title: TextField(
-          //     controller: TextEditingController(
-          //       text: _subject,
-          //     ),
-          //     onChanged: (String value){
-          //       _subject = value;
-          //     },
-          //     keyboardType: TextInputType.multiline,
-          //     maxLines: null,
-          //     style: const TextStyle(
-          //       fontSize: 25,
-          //       color: Colors.black,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //     decoration: const InputDecoration(
-          //       border: InputBorder.none,
-          //       hintText: 'Add Title',
-          //     ),
-          //   ),
-          // ),
-
           const Divider(
             height: 1.0,
             thickness: 0.5,
           ),
 
+          ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            leading: const Icon(
+              Icons.book,
+              color: Colors.black87,
+            ),
+            title: Text(_courseName == '' ? '(No Title)' : _courseName,
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),),
+          ),
+
+          const Divider(
+            height: 1.0,
+            thickness: 0.5,
+          ),
 
           ListTile(
             leading: const Icon(
@@ -139,7 +135,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                                   minute: _endDate.minute);
                             });
                           }
-
                         },)
                   ),
                   Expanded(
@@ -308,6 +303,30 @@ class AppointmentEditorState extends State<AppointmentEditor>{
             },
           ),
 
+          ListTile(
+            contentPadding: const EdgeInsets.all(5),
+            leading: const Icon(
+              Icons.subject,
+              color: Colors.black87,
+            ),
+            title: TextField(
+              controller: TextEditingController(text: _notes),
+              onChanged: (String value) {
+                _notes = value;
+              },
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w400),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Add description',
+              ),
+            ),
+          ),
+
           new TextButton(
             onPressed: (){
               Navigator.of(context).pop();
@@ -390,10 +409,10 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                       from: _startDate,
                       to: _endDate,
                       background: _colorCollection[_selectedColorIndex],
-                      //description: _notes,
+                      description: _notes,
                       isAllDay: _isAllDay,
                       eventName: _subject == '' ? '(No Title)' : _subject,
-                      //recurrenceRule:
+                      courseName: _courseName == '' ? '(No Title)' : _courseName,
                     ));
 
                     _events.appointments!.add(meetings[0]);
@@ -472,10 +491,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
         date1.minute == date2.minute) {
       return true;
     }
-
     return false;
   }
-
-
-
 }
