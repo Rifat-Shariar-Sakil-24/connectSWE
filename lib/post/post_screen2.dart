@@ -224,7 +224,7 @@ class _PostScreenState2 extends State<PostScreen2> {
   List <Meeting> getMeetingDetails(){
     final List <Meeting> meetingCollection = <Meeting>[];
 
-    eventNameCollection = <String>['SWE 221', 'SWE 222', 'SWE 223', 'SWE 331'];
+    eventNameCollection = <String>['SWE 222', 'SWE 223', 'SWE 227', 'SWE229'];
     //eventNameCollection.add('SWE 331');
 
     _colorCollection = <Color> [Colors.red, Colors.blue, Colors.green, Colors.yellow];
@@ -246,6 +246,13 @@ class _PostScreenState2 extends State<PostScreen2> {
         if(today.add(Duration(days: (month*30) + day)).weekday == 1){
 
           setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 10, 30);
+
+
+          String eventStartTimeHours =
+              databaseReference.collection("StoreAllCourses").doc(eventNameCollection[0]).collection("Dates").doc(dateStr).collection("Start").doc("starttime").collection("Hours").
+          doc("hours").id.;
+          print(eventStartTimeHours);
+
 
           meetingCollection.add(Meeting(
             from: today
@@ -576,6 +583,29 @@ class _PostScreenState2 extends State<PostScreen2> {
     set({
       'h': EM
     }
+    );
+
+
+    //
+    databaseReference.collection("StoreAllCourses").doc("SWE 222").collection("Color").doc("bgcolor").set(
+      {
+        'index' : 0
+      }
+    );
+    databaseReference.collection("StoreAllCourses").doc("SWE 223").collection("Color").doc("bgcolor").set(
+        {
+          'index' : 1
+        }
+    );
+    databaseReference.collection("StoreAllCourses").doc("SWE 227").collection("Color").doc("bgcolor").set(
+        {
+          'index' : 2
+        }
+    );
+    databaseReference.collection("StoreAllCourses").doc("SWE 229").collection("Color").doc("bgcolor").set(
+        {
+          'index' : 3
+        }
     );
 
   }
