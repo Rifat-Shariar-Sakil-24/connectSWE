@@ -2,6 +2,7 @@ library calendar;
 
 import 'dart:math';
 
+import 'package:connectswe/config/palette.dart';
 import 'package:connectswe/ui/auth/login_screen.dart';
 import 'package:connectswe/ui/auth/login_screen_main.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:intl/intl.dart';
 import '../utils/utils.dart';
 
 part 'appointment_editor.dart';
-
 part 'color_picker.dart';
 part 'course_picker.dart';
 
@@ -32,6 +32,8 @@ String _subjectText = '',
 List<Color> _colorCollection = <Color>[];
 List<String> _colorNames = <String>[];
 List<String> eventNameCollection = <String>[];
+List<String> courseNameCollection = <String>[];
+
 int _selectedColorIndex = 0;
 int _selectedTimeZoneIndex = 0;
 int eventNameIndex = 0;
@@ -44,7 +46,8 @@ late DateTime _endDate;
 late TimeOfDay _endTime;
 bool _isAllDay = false;
 String _subject = '';
-//String _notes = '';
+String _notes = '';
+String _courseName = '';
 //String _recurrenceRule = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
@@ -75,7 +78,8 @@ class _PostScreenState2 extends State<PostScreen2> {
     //_selectedTimeZoneIndex = 0;
 
     _subject = '';
-    //_notes = '';
+    _notes = '';
+    _courseName = '';
     //_recurrenceRule = '';
     super.initState();
   }
@@ -86,9 +90,9 @@ class _PostScreenState2 extends State<PostScreen2> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Calendar'),
+          title: Text('connectSWE'),
           centerTitle: true,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Palette.backgroundColor2,
           // elevation: ,
         ),
 
@@ -152,7 +156,8 @@ class _PostScreenState2 extends State<PostScreen2> {
       //_selectedColorIndex = 0;
       //_selectedTimeZoneIndex = 0;
       _subject = '';
-      //_notes = '';
+      _notes = '';
+      _courseName = '';
       //_recurrenceRule = '';
 
       if (details.appointments != null &&
@@ -165,7 +170,8 @@ class _PostScreenState2 extends State<PostScreen2> {
           '' : meetingDetails.eventName;
           _selectedColorIndex =
               _colorCollection.indexOf(meetingDetails.background);
-          //_notes = meetingDetails.description;
+          _notes = meetingDetails.description;
+          _courseName = meetingDetails.courseName;
           _selectedAppointment = meetingDetails;
           //_recurrenceRule = _recurrenceRule;
         }
@@ -201,12 +207,18 @@ class _PostScreenState2 extends State<PostScreen2> {
   List <Meeting> getMeetingDetails(){
     final List <Meeting> meetingCollection = <Meeting>[];
 
-    eventNameCollection = <String>['SWE 221', 'SWE 222', 'SWE 223', 'SWE 331'];
+    eventNameCollection = <String>['SWE 222', 'SWE 223', 'SWE 227', 'SWE 229'];
     //eventNameCollection.add('SWE 331');
 
     _colorCollection = <Color> [Colors.red, Colors.blue, Colors.green, Colors.yellow];
 
     _colorNames = <String>['Red', 'Blue', 'Green', 'Yellow'];
+
+    courseNameCollection = <String>[
+      'Introduction to Competitive Programming',
+      'Object Oriented Programming',
+      'Theory of Computation',
+      'Algorithm Design and Analysis'];
 
     final DateTime today =  DateTime(2023,1,8);
     final DateTime finalDate = DateTime(2023,7,10);
@@ -227,9 +239,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[0],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
+            courseName: courseNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -243,9 +256,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[2],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[2],
+            courseName: courseNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -259,9 +273,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[3],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[3],
+            courseName: courseNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -279,9 +294,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[2],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[2],
+            courseName: courseNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -295,9 +311,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[1],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[1],
+            courseName: courseNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -311,9 +328,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[0],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
+            courseName: courseNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -331,9 +349,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[0],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
+            courseName: courseNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -347,9 +366,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[2],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[2],
+            courseName: courseNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -383,9 +403,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[3],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[3],
+            courseName: courseNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -399,9 +420,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[1],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[1],
+            courseName: courseNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -435,9 +457,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[1],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[1],
+            courseName: courseNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -451,9 +474,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[0],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
+            courseName: courseNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -467,9 +491,10 @@ class _PostScreenState2 extends State<PostScreen2> {
             background: _colorCollection[3],
             //startTimeZone: '',
             //endTimeZone: '',
-            //description: '',
+            description: '',
             isAllDay: false,
             eventName: eventNameCollection[3],
+            courseName: courseNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -492,17 +517,19 @@ class MeetingDataSource extends CalendarDataSource{
   @override
   String getSubject(int index) => appointments![index].eventName;
 
+  String getCourse(int index) => appointments![index];
+
   //@override
   //String getStartTimeZone(int index) => appointments![index].startTimeZone;
 
-  //@override
- // String getNotes(int index) => appointments![index].description;
+  @override
+  String getNotes(int index) => appointments![index].description;
 
   //@override
   //String getEndTimeZone(int index) => appointments![index].endTimeZone;
 
-  //@override
-  //Color getColor(int index) => appointments![index].background;
+  @override
+  Color getColor(int index) => appointments![index].background;
 
   @override
   DateTime getStartTime(int index) => appointments![index].from;
@@ -522,20 +549,22 @@ class Meeting {
         this.background = Colors.green,
         this.isAllDay = false,
         this.eventName = '',
+        this.courseName='',
         //this.startTimeZone = '',
         //this.endTimeZone = '',
-        //this.description = '',
+        this.description = '',
         //this.recurrenceRule =''
       });
 
   final String eventName;
+  final String courseName;
   final DateTime from;
   final DateTime to;
   final Color background;
   final bool isAllDay;
   //final String startTimeZone;
   //final String endTimeZone;
-  //final String description;
+  final String description;
   //final String? recurrenceRule;
 
 }
