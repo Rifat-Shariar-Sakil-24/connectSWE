@@ -252,6 +252,13 @@ class _PostScreenState2 extends State<PostScreen2> {
 
           setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 10, 30);
 
+
+          String eventStartTimeHours =
+              databaseReference.collection("StoreAllCourses").doc(eventNameCollection[0]).collection("Dates").doc(dateStr).collection("Start").doc("starttime").collection("Hours").
+          doc("hours").id.;
+          print(eventStartTimeHours);
+
+
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -538,6 +545,29 @@ class _PostScreenState2 extends State<PostScreen2> {
     set({
       'h': EM
     }
+    );
+
+
+    //
+    databaseReference.collection("StoreAllCourses").doc("SWE 222").collection("Color").doc("bgcolor").set(
+      {
+        'index' : 0
+      }
+    );
+    databaseReference.collection("StoreAllCourses").doc("SWE 223").collection("Color").doc("bgcolor").set(
+        {
+          'index' : 1
+        }
+    );
+    databaseReference.collection("StoreAllCourses").doc("SWE 227").collection("Color").doc("bgcolor").set(
+        {
+          'index' : 2
+        }
+    );
+    databaseReference.collection("StoreAllCourses").doc("SWE 229").collection("Color").doc("bgcolor").set(
+        {
+          'index' : 3
+        }
     );
 
   }
