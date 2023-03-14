@@ -105,7 +105,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       controller: calendarController,
 
       timeSlotViewSettings: TimeSlotViewSettings(
-          startHour: 8, endHour: 17, timeFormat: 'h:mm',
+          startHour: 9, endHour: 17, timeFormat: 'h:mm',
           timeInterval: Duration(minutes: 30,)),
       todayHighlightColor: Colors.green[500],
 
@@ -168,118 +168,6 @@ class _PostScreenState2 extends State<PostScreen2> {
           MaterialPageRoute(builder:
               (BuildContext context) => AppointmentEditor()),);
       }
-
-      //   if (details.targetElement == CalendarElement.appointment ||
-      //       details.targetElement == CalendarElement.agenda) {
-      //     final Appointment appointmentDetails = details.appointments![0];
-      //     _subjectText = appointmentDetails.subject;
-      //
-      //     _dateText = DateFormat('MMMM dd, yyyy').
-      //     format(appointmentDetails.startTime).toString();
-      //
-      //     _startTimeText = DateFormat('hh:mm a').
-      //     format(appointmentDetails.startTime).toString();
-      //     _endTimeText = DateFormat('hh:mm a').
-      //     format(appointmentDetails.endTime).toString();
-      //
-      //     _startDate = appointmentDetails.startTime;
-      //     _endDate = appointmentDetails.endTime;
-      //     _isAllDay = appointmentDetails.isAllDay;
-      //
-      //     if (appointmentDetails.isAllDay) {
-      //       _timeDetails = 'All Day';
-      //     } else {
-      //       _timeDetails = '$_startTimeText - $_endTimeText';
-      //     }
-      //
-      //     showDialog(
-      //         context: context,
-      //         builder: (BuildContext context) {
-      //           return AlertDialog(
-      //             title: Container(
-      //               child: Text('$_subjectText'),
-      //             ),
-      //             content: Container(
-      //                 height: 70,
-      //                 child: Column(
-      //                   children: [
-      //                     Row(
-      //                       children: [
-      //                         Text('$_dateText'),
-      //                       ],
-      //                     ),
-      //                     Row(
-      //                       children: [
-      //                         Text(' '),
-      //                       ],
-      //                     ),
-      //                     Row(
-      //                       children: [
-      //                         // Text('$_startTimeText'),
-      //                         // Text(' - '),
-      //                         // Text('$_endTimeText'),
-      //                         Text(_timeDetails!,
-      //                             style: TextStyle(
-      //                               fontWeight: FontWeight.w400,
-      //                               fontSize: 20,
-      //                             )),
-      //                       ],
-      //                     )
-      //                   ],
-      //                 )
-      //             ),
-      //             actions: [
-      //               new TextButton(
-      //                   onPressed: () {
-      //                     Navigator.of(context).pop();
-      //                   },
-      //                   child: new Text('close')),
-      //               TextButton(
-      //                 onPressed: () {
-      //                   showDialog(context: context,
-      //                       builder: (BuildContext context) {
-      //                         return AppointmentEditor();
-      //                       });
-      //                 },
-      //                 child: new Text('edit'),)
-      //             ],
-      //           );
-      //         });
-      //   }
-      //
-      //   else {
-      //     showDialog(
-      //         context: context,
-      //         builder: (BuildContext context) {
-      //           return AlertDialog(
-      //             title: Container(
-      //               child: Text('No event set'),
-      //             ),
-      //             content: Container(
-      //               height: 70,
-      //               child: Text('Set an event'),
-      //             ),
-      //             actions: [
-      //               new TextButton(
-      //                   onPressed: () {
-      //                     Navigator.of(context).pop();
-      //                   },
-      //                   child: new Text('close')),
-      //               TextButton(
-      //                 onPressed: () {
-      //                   showDialog(
-      //                       context: context,
-      //                       builder: (BuildContext context) {
-      //                         return AppointmentEditor();
-      //                       });
-      //                 },
-      //                 child: new Text('edit'),)
-      //             ],
-      //           );
-      //         });
-      //   }
-      // }
-
     );
   }
 
@@ -301,39 +189,273 @@ class _PostScreenState2 extends State<PostScreen2> {
     eventNameCollection = <String>['SWE 221', 'SWE 222', 'SWE 223'];
     eventNameCollection.add('SWE 331');
 
-    final DateTime today =  DateTime.now();
+    final DateTime today =  DateTime(2023,2,10);
+    final DateTime finalDate = DateTime(2023,6,10);
     final Random random = Random();
 
-    meetingCollection.add(Meeting(
-      from: DateTime(2023,3,12,8,30),
-      to: DateTime(2023,3,12,9,30),
-      background: Colors.redAccent,
-      isAllDay: false,
-      //recurrenceRule: 'FREQ=WEEKLY,INTERVAL=1,COUNT=14',
-      eventName: eventNameCollection[0],
-    ));
+    for (int month = 0; month < 5; month++) {
+      for (int day = 0; day < 31; day++) {
 
-    // for (int month = -1; month < 2; month++) {
-    //   for (int day = -5; day < 5; day++) {
-    //     for (int hour = 9; hour < 18; hour += 5) {
-    //       meetingCollection.add(Meeting(
-    //         from: today
-    //             .add(Duration(days: (month * 30) + day))
-    //             .add(Duration(hours: hour)),
-    //         to: today
-    //             .add(Duration(days: (month * 30) + day))
-    //             .add(Duration(hours: hour + 2)),
-    //         // background: _colorCollection[random.nextInt(9)],
-    //         startTimeZone: '',
-    //         endTimeZone: '',
-    //         //description: '',
-    //         isAllDay: false,
-    //         eventName: eventNameCollection[random.nextInt(3)],
-    //         recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
-    //       ));
-    //     }}}
+        //monday - done
+        if(today.add(Duration(days: (month*30) + day)).weekday == 1){
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 9)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 10, minutes: 30)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[0],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 11)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 13)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[2],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 14)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 16)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[3],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+        }
 
 
+        //tuesday - done
+        if(today.add(Duration(days: (month*30) + day)).weekday == 2){
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 12)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 13)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[2],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 14)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 15)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[1],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 15)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 17)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[0],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+        }
+
+
+        //wednesday - done
+        if(today.add(Duration(days: (month*30) + day)).weekday == 3){
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 9)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 11)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[0],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 14)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 17)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[2],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          // meetingCollection.add(Meeting(
+          //   from: today
+          //       .add(Duration(days: (month * 30) + day))
+          //       .add(Duration(hours: 14)),
+          //   to: today
+          //       .add(Duration(days: (month * 30) + day))
+          //       .add(Duration(hours: 16)),
+          //   // background: _colorCollection[random.nextInt(9)],
+          //   //startTimeZone: '',
+          //   //endTimeZone: '',
+          //   //description: '',
+          //   isAllDay: false,
+          //   eventName: eventNameCollection[3],
+          //   //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          // ));
+        }
+
+
+        //thursday - done
+        if(today.add(Duration(days: (month*30) + day)).weekday == 4){
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 10, minutes: 30)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 12, minutes: 30)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[3],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 14)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 15)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[1],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          // meetingCollection.add(Meeting(
+          //   from: today
+          //       .add(Duration(days: (month * 30) + day))
+          //       .add(Duration(hours: 14)),
+          //   to: today
+          //       .add(Duration(days: (month * 30) + day))
+          //       .add(Duration(hours: 16)),
+          //   // background: _colorCollection[random.nextInt(9)],
+          //   //startTimeZone: '',
+          //   //endTimeZone: '',
+          //   //description: '',
+          //   isAllDay: false,
+          //   eventName: eventNameCollection[3],
+          //   //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          // ));
+        }
+
+
+        //sunday - done
+        if(today.add(Duration(days: (month*30) + day)).weekday == 7){
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 10)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 11, minutes: 30)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[1],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 12)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 13)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[0],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+
+          meetingCollection.add(Meeting(
+            from: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 15)),
+            to: today
+                .add(Duration(days: (month * 30) + day))
+                .add(Duration(hours: 16)),
+            // background: _colorCollection[random.nextInt(9)],
+            //startTimeZone: '',
+            //endTimeZone: '',
+            //description: '',
+            isAllDay: false,
+            eventName: eventNameCollection[3],
+            //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
+          ));
+        }
+
+        }}
     return meetingCollection;
   }
 
@@ -369,8 +491,8 @@ class MeetingDataSource extends CalendarDataSource{
   @override
   DateTime getEndTime(int index) => appointments![index].to;
 
-//@override
-//String getRecurrenceRule(int index) => appointments![index].recurrenceRule;
+  //@override
+  //String getRecurrenceRule(int index) => appointments![index].recurrenceRule;
 
 }
 
