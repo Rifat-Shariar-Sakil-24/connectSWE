@@ -302,7 +302,42 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                   icon: const Icon(
                     Icons.done,
                     color: Colors.white,),
-                  onPressed: (){
+                  onPressed: () async {
+
+                    // final Meeting? startTimeAppointment =
+                    // _isInterceptExistingAppointments(
+                    //     _startDate, _selectedAppointment!);
+                    // final Meeting? endTimeAppointment =
+                    // _isInterceptExistingAppointments(
+                    //     _endDate, _selectedAppointment!);
+                    //
+                    // AlertDialog alert;
+                    // if (startTimeAppointment != null ||
+                    //     endTimeAppointment != null) {
+                    //   Widget okButton = TextButton(
+                    //     child: const Text("Ok"),
+                    //     onPressed: () {
+                    //       Navigator.pop(context, true);
+                    //     },
+                    //   );
+                    //   alert = AlertDialog(
+                    //     title: const Text("Alert"),
+                    //     content: const Text('Have intercept with existing'),
+                    //     actions: [
+                    //       okButton,
+                    //     ],
+                    //   );
+                    //
+                    //   await showDialog<bool>(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return alert;
+                    //     },
+                    //   );
+                    //
+                    //   return;
+                    // }
+
                     final List<Meeting> meetings = <Meeting>[];
                     if (_selectedAppointment != null){
                       _events.appointments!.removeAt(_events.appointments!
@@ -321,6 +356,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     ));
 
                     _events.appointments!.add(meetings[0]);
+
                     _events.notifyListeners(
                         CalendarDataSourceAction.add, meetings);
                     _selectedAppointment = null;
@@ -359,4 +395,46 @@ class AppointmentEditorState extends State<AppointmentEditor>{
 
   String getTile() {
     return _subject.isEmpty ? 'New Event' : 'Event Details';
-} }
+}
+
+  dynamic _isInterceptExistingAppointments(
+      DateTime date, Meeting selectedAppointment) {
+    if (date == null ||
+        _events == null ||
+        _events.appointments == null ||
+        _events.appointments!.isEmpty) return null;
+    for (int i = 0; i < _events.appointments!.length; i++) {
+      var appointment = _events.appointments![i];
+      if (appointment != selectedAppointment &&
+          (date.isAfter(appointment.from) ||
+              _isSameDateTime(date, appointment.from)) &&
+          date.isBefore(appointment.to)) {
+        return appointment;
+      }
+    }
+    return null;
+  }
+
+  bool _isSameDateTime(DateTime date1, DateTime date2) {
+    if (date1 == date2) {
+      return true;
+    }
+
+    if (date1 == null || date2 == null) {
+      return false;
+    }
+
+    if (date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day &&
+        date1.hour == date2.hour &&
+        date1.minute == date2.minute) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+
+}
