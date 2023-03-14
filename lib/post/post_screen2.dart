@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:intl/intl.dart';
-
 import '../utils/utils.dart';
 
 part 'appointment_editor.dart';
@@ -40,6 +39,7 @@ int eventNameIndex = 0;
 List<String> _timeZoneCollection = <String>[];
 late MeetingDataSource _events;
 Meeting? _selectedAppointment;
+
 late DateTime _startDate;
 late TimeOfDay _startTime;
 late DateTime _endDate;
@@ -54,17 +54,11 @@ class _PostScreenState2 extends State<PostScreen2> {
 
   _PostScreenState2();
 
-  //late List<String> eventNameCollection;
   late List <Meeting> appointments;
   CalendarController calendarController = CalendarController();
 
 
-  //late List<Appointment> _courses;
-  //late List<CalendarResource> _courseTeachers;
 
-  //late MeetingDataSource _events;
-  //late List<Appointment> _courses;
-  //late List<CalendarResource> _courseTeachers;
   late List<TimeRegion> _specialTimeRegion;
 
   @override
@@ -75,7 +69,6 @@ class _PostScreenState2 extends State<PostScreen2> {
     _selectedAppointment = null;
 
     _selectedColorIndex = 0;
-    //_selectedTimeZoneIndex = 0;
 
     _subject = '';
     _notes = '';
@@ -208,7 +201,6 @@ class _PostScreenState2 extends State<PostScreen2> {
     final List <Meeting> meetingCollection = <Meeting>[];
 
     eventNameCollection = <String>['SWE 222', 'SWE 223', 'SWE 227', 'SWE 229'];
-    //eventNameCollection.add('SWE 331');
 
     _colorCollection = <Color> [Colors.red, Colors.blue, Colors.green, Colors.yellow];
 
@@ -254,8 +246,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 13)),
             background: _colorCollection[2],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[2],
@@ -271,8 +261,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 16)),
             background: _colorCollection[3],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[3],
@@ -292,8 +280,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 13)),
             background: _colorCollection[2],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[2],
@@ -309,8 +295,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 15)),
             background: _colorCollection[1],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[1],
@@ -326,8 +310,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 17)),
             background: _colorCollection[0],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
@@ -347,8 +329,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 11)),
             background: _colorCollection[0],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
@@ -364,30 +344,12 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 17)),
             background: _colorCollection[2],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[2],
             courseName: courseNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-          // meetingCollection.add(Meeting(
-          //   from: today
-          //       .add(Duration(days: (month * 30) + day))
-          //       .add(Duration(hours: 14)),
-          //   to: today
-          //       .add(Duration(days: (month * 30) + day))
-          //       .add(Duration(hours: 16)),
-          //   // background: _colorCollection[random.nextInt(9)],
-          //   //startTimeZone: '',
-          //   //endTimeZone: '',
-          //   //description: '',
-          //   isAllDay: false,
-          //   eventName: eventNameCollection[3],
-          //   //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
-          // ));
         }
 
 
@@ -401,8 +363,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 12, minutes: 30)),
             background: _colorCollection[3],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[3],
@@ -418,30 +378,12 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 15)),
             background: _colorCollection[1],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[1],
             courseName: courseNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
-
-          // meetingCollection.add(Meeting(
-          //   from: today
-          //       .add(Duration(days: (month * 30) + day))
-          //       .add(Duration(hours: 14)),
-          //   to: today
-          //       .add(Duration(days: (month * 30) + day))
-          //       .add(Duration(hours: 16)),
-          //   // background: _colorCollection[random.nextInt(9)],
-          //   //startTimeZone: '',
-          //   //endTimeZone: '',
-          //   //description: '',
-          //   isAllDay: false,
-          //   eventName: eventNameCollection[3],
-          //   //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
-          // ));
         }
 
 
@@ -455,8 +397,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 11, minutes: 30)),
             background: _colorCollection[1],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[1],
@@ -472,8 +412,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 13)),
             background: _colorCollection[0],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[0],
@@ -489,8 +427,6 @@ class _PostScreenState2 extends State<PostScreen2> {
                 .add(Duration(days: (month * 30) + day))
                 .add(Duration(hours: 16)),
             background: _colorCollection[3],
-            //startTimeZone: '',
-            //endTimeZone: '',
             description: '',
             isAllDay: false,
             eventName: eventNameCollection[3],
@@ -519,14 +455,8 @@ class MeetingDataSource extends CalendarDataSource{
 
   String getCourse(int index) => appointments![index];
 
-  //@override
-  //String getStartTimeZone(int index) => appointments![index].startTimeZone;
-
   @override
   String getNotes(int index) => appointments![index].description;
-
-  //@override
-  //String getEndTimeZone(int index) => appointments![index].endTimeZone;
 
   @override
   Color getColor(int index) => appointments![index].background;
@@ -550,8 +480,6 @@ class Meeting {
         this.isAllDay = false,
         this.eventName = '',
         this.courseName='',
-        //this.startTimeZone = '',
-        //this.endTimeZone = '',
         this.description = '',
         //this.recurrenceRule =''
       });
@@ -562,8 +490,6 @@ class Meeting {
   final DateTime to;
   final Color background;
   final bool isAllDay;
-  //final String startTimeZone;
-  //final String endTimeZone;
   final String description;
   //final String? recurrenceRule;
 

@@ -39,28 +39,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
             },
           ),
 
-          // ListTile(
-          //   title: TextField(
-          //     controller: TextEditingController(
-          //       text: _subject,
-          //     ),
-          //     onChanged: (String value){
-          //       _subject = value;
-          //     },
-          //     keyboardType: TextInputType.multiline,
-          //     maxLines: null,
-          //     style: const TextStyle(
-          //       fontSize: 25,
-          //       color: Colors.black,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //     decoration: const InputDecoration(
-          //       border: InputBorder.none,
-          //       hintText: 'Add Title',
-          //     ),
-          //   ),
-          // ),
-
           const Divider(
             height: 1.0,
             thickness: 0.5,
@@ -157,7 +135,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                                   minute: _endDate.minute);
                             });
                           }
-
                         },)
                   ),
                   Expanded(
@@ -436,7 +413,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                       isAllDay: _isAllDay,
                       eventName: _subject == '' ? '(No Title)' : _subject,
                       courseName: _courseName == '' ? '(No Title)' : _courseName,
-                      //recurrenceRule:
                     ));
 
                     _events.appointments!.add(meetings[0]);
@@ -515,10 +491,6 @@ class AppointmentEditorState extends State<AppointmentEditor>{
         date1.minute == date2.minute) {
       return true;
     }
-
     return false;
   }
-
-
-
 }
