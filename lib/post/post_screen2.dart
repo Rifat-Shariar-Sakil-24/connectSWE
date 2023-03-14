@@ -10,12 +10,12 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:intl/intl.dart';
 
 import '../utils/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 part 'appointment_editor.dart';
+part 'color_picker.dart';
+part 'course_picker.dart';
 
 class PostScreen2 extends StatefulWidget {
-
-
   const PostScreen2({Key? key}) : super(key: key);
 
   @override
@@ -29,6 +29,8 @@ String _subjectText = '',
     _timeDetails = '';
 
 List<Color> _colorCollection = <Color>[];
+late List<String> eventNameCollection = <String>[];
+
 List<String> _colorNames = <String>[];
 int _selectedColorIndex = 0;
 int _selectedTimeZoneIndex = 0;
@@ -45,7 +47,6 @@ String _subject = '';
 //String _recurrenceRule = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
-  final user = FirebaseAuth.instance.currentUser;
 
   _PostScreenState2();
 
@@ -313,7 +314,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       background: Colors.redAccent,
       isAllDay: false,
       //recurrenceRule: 'FREQ=WEEKLY,INTERVAL=1,COUNT=14',
-      eventName: eventNameCollection[1],
+      eventName: eventNameCollection[0],
     ));
 
     // for (int month = -1; month < 2; month++) {

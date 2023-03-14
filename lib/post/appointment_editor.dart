@@ -16,6 +16,26 @@ class AppointmentEditorState extends State<AppointmentEditor>{
       child: ListView(
         children: [
 
+          // ListTile(
+          //   contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+          //   // leading: Icon(Icons.lens,
+          //   //     color: _colorCollection[_selectedColorIndex]),
+          //   title: Text(_subject),
+          //   onTap: () {
+          //     // for(int i = 0; i < eventNameCollection.length; i++){
+          //     //   if(_subject == eventNameCollection[i])
+          //     //     eventNameIndex = i;
+          //     // }
+          //     showDialog<Widget>(
+          //       context: context,
+          //       barrierDismissible: true,
+          //       builder: (BuildContext context) {
+          //         return _CoursePicker();
+          //       },
+          //     ).then((dynamic value) => setState(() {}));
+          //   },
+          // ),
+
           ListTile(
             title: TextField(
               controller: TextEditingController(
@@ -267,6 +287,24 @@ class AppointmentEditorState extends State<AppointmentEditor>{
             thickness: 0.5,
           ),
 
+          ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            leading: Icon(Icons.lens,
+                color: _colorCollection[_selectedColorIndex]),
+            title: Text(
+              _colorNames[_selectedColorIndex],
+            ),
+            onTap: () {
+              showDialog<Widget>(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return _ColorPicker();
+                },
+              ).then((dynamic value) => setState(() {}));
+            },
+          ),
+
           new TextButton(
             onPressed: (){
               Navigator.of(context).pop();
@@ -286,7 +324,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
           appBar: AppBar(
               toolbarHeight: 45,
               title: Text(getTile(),),
-              backgroundColor: Colors.redAccent,
+              backgroundColor: _colorCollection[_selectedColorIndex],
 
               leading: IconButton(
                 icon: const Icon(
@@ -302,7 +340,42 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                   icon: const Icon(
                     Icons.done,
                     color: Colors.white,),
-                  onPressed: (){
+                  onPressed: () async {
+
+                    // final Meeting? startTimeAppointment =
+                    // _isInterceptExistingAppointments(
+                    //     _startDate, _selectedAppointment!);
+                    // final Meeting? endTimeAppointment =
+                    // _isInterceptExistingAppointments(
+                    //     _endDate, _selectedAppointment!);
+                    //
+                    // AlertDialog alert;
+                    // if (startTimeAppointment != null ||
+                    //     endTimeAppointment != null) {
+                    //   Widget okButton = TextButton(
+                    //     child: const Text("Ok"),
+                    //     onPressed: () {
+                    //       Navigator.pop(context, true);
+                    //     },
+                    //   );
+                    //   alert = AlertDialog(
+                    //     title: const Text("Alert"),
+                    //     content: const Text('Have intercept with existing'),
+                    //     actions: [
+                    //       okButton,
+                    //     ],
+                    //   );
+                    //
+                    //   await showDialog<bool>(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return alert;
+                    //     },
+                    //   );
+                    //
+                    //   return;
+                    // }
+
                     final List<Meeting> meetings = <Meeting>[];
                     if (_selectedAppointment != null){
                       _events.appointments!.removeAt(_events.appointments!
@@ -313,7 +386,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     meetings.add(Meeting(
                       from: _startDate,
                       to: _endDate,
-                      background: Colors.redAccent,
+                      background: _colorCollection[_selectedColorIndex],
                       //description: _notes,
                       isAllDay: _isAllDay,
                       eventName: _subject == '' ? '(No Title)' : _subject,
@@ -321,6 +394,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     ));
 
                     _events.appointments!.add(meetings[0]);
+
                     _events.notifyListeners(
                         CalendarDataSourceAction.add, meetings);
                     _selectedAppointment = null;
@@ -359,4 +433,46 @@ class AppointmentEditorState extends State<AppointmentEditor>{
 
   String getTile() {
     return _subject.isEmpty ? 'New Event' : 'Event Details';
-} }
+}
+
+  dynamic _isInterceptExistingAppointments(
+      DateTime date, Meeting selectedAppointment) {
+    if (date == null ||
+        _events == null ||
+        _events.appointments == null ||
+        _events.appointments!.isEmpty) return null;
+    for (int i = 0; i < _events.appointments!.length; i++) {
+      var appointment = _events.appointments![i];
+      if (appointment != selectedAppointment &&
+          (date.isAfter(appointment.from) ||
+              _isSameDateTime(date, appointment.from)) &&
+          date.isBefore(appointment.to)) {
+        return appointment;
+      }
+    }
+    return null;
+  }
+
+  bool _isSameDateTime(DateTime date1, DateTime date2) {
+    if (date1 == date2) {
+      return true;
+    }
+
+    if (date1 == null || date2 == null) {
+      return false;
+    }
+
+    if (date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day &&
+        date1.hour == date2.hour &&
+        date1.minute == date2.minute) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+
+}
