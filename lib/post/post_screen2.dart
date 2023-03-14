@@ -34,12 +34,10 @@ String _subjectText = '',
     _timeDetails = '';
 
 List<Color> _colorCollection = <Color>[];
-late List<String> eventNameCollection = <String>[];
-
-List<String> _colorNames = <String>[];
-
 List<String> eventNameCollection = <String>[];
+List<String> _colorNames = <String>[];
 List<String> courseNameCollection = <String>[];
+List<String> teacherNameCollection = <String>[];
 
 
 int _selectedColorIndex = 0;
@@ -57,6 +55,7 @@ bool _isAllDay = false;
 String _subject = '';
 String _notes = '';
 String _courseName = '';
+String _teacherName = '';
 //String _recurrenceRule = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
@@ -84,6 +83,7 @@ class _PostScreenState2 extends State<PostScreen2> {
     _subject = '';
     _notes = '';
     _courseName = '';
+    _teacherName = '';
     //_recurrenceRule = '';
 
     getDataFromFireStore().then((results) {
@@ -175,6 +175,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       _subject = '';
       _notes = '';
       _courseName = '';
+      _teacherName = '';
       //_recurrenceRule = '';
 
       if (details.appointments != null &&
@@ -189,6 +190,7 @@ class _PostScreenState2 extends State<PostScreen2> {
               _colorCollection.indexOf(meetingDetails.background);
           _notes = meetingDetails.description;
           _courseName = meetingDetails.courseName;
+          _teacherName = meetingDetails.teacherName;
           _selectedAppointment = meetingDetails;
           //_recurrenceRule = _recurrenceRule;
         }
@@ -236,6 +238,12 @@ class _PostScreenState2 extends State<PostScreen2> {
       'Theory of Computation',
       'Algorithm Design and Analysis'];
 
+    teacherNameCollection = <String>[
+      'Partha Protim Paul',
+      'Asif Mohammed Samir',
+      'Raihan Ullah',
+      'Partha Protim Paul'];
+
     final DateTime today =  DateTime(2023,1,8);
     final DateTime finalDate = DateTime(2023,7,10);
     final Random random = Random();
@@ -266,6 +274,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[0],
             courseName: courseNameCollection[0],
+            teacherName: teacherNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -285,6 +294,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[2],
             courseName: courseNameCollection[2],
+            teacherName: teacherNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -303,6 +313,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[3],
             courseName: courseNameCollection[3],
+            teacherName: teacherNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -326,6 +337,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[2],
             courseName: courseNameCollection[2],
+            teacherName: teacherNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -343,6 +355,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[1],
             courseName: courseNameCollection[1],
+            teacherName: teacherNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -363,6 +376,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[0],
             courseName: courseNameCollection[0],
+            teacherName: teacherNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -386,6 +400,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[0],
             courseName: courseNameCollection[0],
+            teacherName: teacherNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -405,6 +420,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[2],
             courseName: courseNameCollection[2],
+            teacherName: teacherNameCollection[2],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -427,6 +443,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[3],
             courseName: courseNameCollection[3],
+            teacherName: teacherNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -445,6 +462,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[1],
             courseName: courseNameCollection[1],
+            teacherName: teacherNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -466,6 +484,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[1],
             courseName: courseNameCollection[1],
+            teacherName: teacherNameCollection[1],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -484,6 +503,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[0],
             courseName: courseNameCollection[0],
+            teacherName: teacherNameCollection[0],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
@@ -504,6 +524,7 @@ class _PostScreenState2 extends State<PostScreen2> {
             isAllDay: false,
             eventName: eventNameCollection[3],
             courseName: courseNameCollection[3],
+            teacherName: teacherNameCollection[3],
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
         }
@@ -556,7 +577,9 @@ class MeetingDataSource extends CalendarDataSource{
   @override
   String getSubject(int index) => appointments![index].eventName;
 
-  String getCourse(int index) => appointments![index];
+  String getCourse(int index) => appointments![index].courseName;
+
+  String getTeacher(int index) => appointments![index].teacherName;
 
   @override
   String getNotes(int index) => appointments![index].description;
@@ -584,6 +607,7 @@ class Meeting {
         this.eventName = '',
         this.courseName='',
         this.description = '',
+        this.teacherName = '',
         //this.recurrenceRule =''
       });
 
@@ -594,6 +618,7 @@ class Meeting {
   final Color background;
   final bool isAllDay;
   final String description;
+  final String teacherName;
   //final String? recurrenceRule;
 
 }

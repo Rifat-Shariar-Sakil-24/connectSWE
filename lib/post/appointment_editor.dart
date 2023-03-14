@@ -64,6 +64,25 @@ class AppointmentEditorState extends State<AppointmentEditor>{
           ),
 
           ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            leading: const Icon(
+              Icons.person,
+              color: Colors.black87,
+            ),
+            title: Text(_courseName == '' ? '(No Title)' : _teacherName,
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),),
+          ),
+
+          const Divider(
+            height: 1.0,
+            thickness: 0.5,
+          ),
+
+          ListTile(
             leading: const Icon(
               Icons.access_time,
               color: Colors.black87,
@@ -413,6 +432,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                       isAllDay: _isAllDay,
                       eventName: _subject == '' ? '(No Title)' : _subject,
                       courseName: _courseName == '' ? '(No Title)' : _courseName,
+                      teacherName: _teacherName == '' ? '(No Title)' : _teacherName,
                     ));
 
                     _events.appointments!.add(meetings[0]);
