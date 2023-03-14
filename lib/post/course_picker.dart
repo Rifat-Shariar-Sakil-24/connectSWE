@@ -11,29 +11,36 @@ class _CoursePickerState extends State<_CoursePicker> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      //backgroundColor: Colors.white70,
       content: Container(
           width: double.maxFinite,
           child: ListView.builder(
+            scrollDirection: Axis.vertical,
             padding: const EdgeInsets.all(0),
-            itemCount: eventNameCollection.length,
+            itemCount: eventNameCollection.length ,
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                contentPadding: const EdgeInsets.all(0),
-                leading: Icon(
-                    index == _selectedColorIndex
-                        ? Icons.lens
-                        : Icons.trip_origin,
-                    color: _colorCollection[index]),
-                title: Text(eventNameCollection[index]),
-                onTap: () {
-                  setState(() {
-                    _subject = eventNameCollection[index];
-                  });
+              return Card(
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(eventNameCollection[index],
+                  style: const TextStyle(
+                    fontSize: 18,
+                    //color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  ),
+                  textColor: _colorCollection[index],
+                  onTap: () {
+                    setState(() {
+                      _subject = eventNameCollection[index];
+                      _selectedColorIndex = index;
+                    });
 
-                  Future.delayed(const Duration(milliseconds: 200), () {
-                    Navigator.pop(context);
-                  });
-                },
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
               );
             },
           )),

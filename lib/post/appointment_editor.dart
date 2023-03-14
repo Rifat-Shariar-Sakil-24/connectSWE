@@ -16,47 +16,50 @@ class AppointmentEditorState extends State<AppointmentEditor>{
       child: ListView(
         children: [
 
-          // ListTile(
-          //   contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-          //   // leading: Icon(Icons.lens,
-          //   //     color: _colorCollection[_selectedColorIndex]),
-          //   title: Text(_subject),
-          //   onTap: () {
-          //     // for(int i = 0; i < eventNameCollection.length; i++){
-          //     //   if(_subject == eventNameCollection[i])
-          //     //     eventNameIndex = i;
-          //     // }
-          //     showDialog<Widget>(
-          //       context: context,
-          //       barrierDismissible: true,
-          //       builder: (BuildContext context) {
-          //         return _CoursePicker();
-          //       },
-          //     ).then((dynamic value) => setState(() {}));
-          //   },
-          // ),
-
           ListTile(
-            title: TextField(
-              controller: TextEditingController(
-                text: _subject,
-              ),
-              onChanged: (String value){
-                _subject = value;
-              },
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              style: const TextStyle(
-                fontSize: 25,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Add Title',
-              ),
+            contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            leading: const Icon(
+              Icons.bookmark,
+              color: Colors.black87,
             ),
+            title: Text(_subject == '' ? '(No Title)' : _subject,
+              style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),),
+            onTap: () {
+              showDialog<Widget>(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return _CoursePicker();
+                },
+              ).then((dynamic value) => setState(() {}));
+            },
           ),
+
+          // ListTile(
+          //   title: TextField(
+          //     controller: TextEditingController(
+          //       text: _subject,
+          //     ),
+          //     onChanged: (String value){
+          //       _subject = value;
+          //     },
+          //     keyboardType: TextInputType.multiline,
+          //     maxLines: null,
+          //     style: const TextStyle(
+          //       fontSize: 25,
+          //       color: Colors.black,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //     decoration: const InputDecoration(
+          //       border: InputBorder.none,
+          //       hintText: 'Add Title',
+          //     ),
+          //   ),
+          // ),
 
           const Divider(
             height: 1.0,

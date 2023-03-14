@@ -51,7 +51,7 @@ class _PostScreenState2 extends State<PostScreen2> {
 
   _PostScreenState2();
 
-  late List<String> eventNameCollection;
+  //late List<String> eventNameCollection;
   late List <Meeting> appointments;
   CalendarController calendarController = CalendarController();
 
@@ -189,8 +189,8 @@ class _PostScreenState2 extends State<PostScreen2> {
   void addSpecialRegion() {
     final DateTime date = DateTime(2023, 2, 12, 8, 0, 0);
     _specialTimeRegion = [
-      TimeRegion(startTime: DateTime(2023, 2, 12, 13, 0, 0),
-          endTime: DateTime(2023, 2, 12, 14, 0, 0),
+      TimeRegion(startTime: DateTime(2023, 1, 8, 13, 0, 0),
+          endTime: DateTime(2023, 1, 8, 14, 0, 0),
           text: 'LUNCH',
           recurrenceRule: 'FREQ=DAILY,INTERVAL=1',
           enablePointerInteraction: false)
