@@ -43,7 +43,7 @@ class LoadDataFromFireStoreState extends State<LoadDataFromFireStore> {
 
   Future<void> getDataFromFireStore() async {
     var snapShotsValue = await databaseReference
-        .collection("CalendarAppointmentCollection")
+        .collection("All Courses")
         .get();
 
     final Random random = new Random();
@@ -75,25 +75,27 @@ class LoadDataFromFireStoreState extends State<LoadDataFromFireStore> {
               }).toList(),
               onSelected: (String value) {
                 if (value == 'Add') {
+
                   databaseReference
-                      .collection("CalendarAppointmentCollection")
-                      .doc("1")
+                      .collection("All Courses")
+                      .doc("SWE 221").
+                       collection("Dates").
+                      doc("15.03.2023")
                       .set({
-                    'Subject': 'Mastering Flutter',
-                    'StartTime': '07/04/2020 08:00:00',
-                    'EndTime': '07/04/2020 09:00:00'
+                    'Start' : '8',
+                    'End' : '9'
                   });
                 } else if (value == "Delete") {
                   try {
                     databaseReference
-                        .collection('CalendarAppointmentCollection')
-                        .doc('1')
+                        .collection('All Courses')
+                        .doc('SWE 221')
                         .delete();
                   } catch (e) {}
                 } else if (value == "Update") {
                   try {
                     databaseReference
-                        .collection('CalendarAppointmentCollection')
+                        .collection('All Courses')
                         .doc('1')
                         .update({'Subject': 'Meeting'});
                   } catch (e) {}
@@ -102,7 +104,7 @@ class LoadDataFromFireStoreState extends State<LoadDataFromFireStore> {
             )),
         body: SfCalendar(
           view: CalendarView.month,
-          initialDisplayDate: DateTime(2020, 4, 5, 9, 0, 0),
+          initialDisplayDate: DateTime(2023, 3, 5, 9, 0, 0),
           dataSource: events,
           monthViewSettings: MonthViewSettings(
             showAgenda: true,
