@@ -122,6 +122,25 @@ class _PostScreenState2 extends State<PostScreen2> {
 
     return SfCalendar(
 
+      //decoration
+      //backgroundColor: Colors.grey,
+      selectionDecoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(color: Colors.black87, width: 2),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        shape: BoxShape.rectangle,
+      ),
+      headerStyle: const CalendarHeaderStyle(
+        backgroundColor: Palette.backgroundColor,
+        textStyle: TextStyle(
+          color: Colors.black87,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      //cellBorderColor: Colors.blue[100],
+
+
       view: CalendarView.week,
       dataSource: _calendarDataSource,
       specialRegions: _specialTimeRegion,
@@ -133,26 +152,30 @@ class _PostScreenState2 extends State<PostScreen2> {
       timeSlotViewSettings: TimeSlotViewSettings(
           startHour: 9, endHour: 17, timeFormat: 'h:mm',
           timeInterval: Duration(minutes: 30,)),
-      todayHighlightColor: Colors.green[500],
+      todayHighlightColor: Palette.backgroundColor2,
+      todayTextStyle: TextStyle(),
 
       appointmentBuilder: (context, details){
         final Meeting meeting = details.appointments.first;
         return Container(
           color: meeting.background,
-          child: Text(meeting.eventName,
-          style: TextStyle(
-            color: Colors.white,
-            shadows: <Shadow>[
-              Shadow(
-                //offset: Offset(10.0, 10.0),
-                blurRadius: 5.0,
-                //color: Color.fromARGB(255, 0, 0, 0),
-                color: Colors.black87
-              ),
-            ],
-            fontSize: 13.5,
-            fontWeight: FontWeight.bold,
-          ),),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(meeting.eventName,
+            style: const TextStyle(
+              color: Colors.white,
+              shadows: <Shadow>[
+                Shadow(
+                  //offset: Offset(10.0, 10.0),
+                  blurRadius: 5.0,
+                  //color: Color.fromARGB(255, 0, 0, 0),
+                  color: Colors.black87
+                ),
+              ],
+              fontSize: 13.5,
+              fontWeight: FontWeight.bold,
+            ),),
+          ),
         );
 
       },
@@ -228,9 +251,9 @@ class _PostScreenState2 extends State<PostScreen2> {
 
     eventNameCollection = <String>['SWE 222', 'SWE 223', 'SWE 227', 'SWE 229'];
 
-    _colorCollection = <Color> [Colors.red, Colors.blue, Colors.green, Colors.yellow];
+    _colorCollection = <Color> [Colors.red, Colors.blue, Colors.green, Colors.deepPurple];
 
-    _colorNames = <String>['Red', 'Blue', 'Green', 'Yellow'];
+    _colorNames = <String>['Red', 'Blue', 'Green', 'Purple'];
 
     courseNameCollection = <String>[
       'Introduction to Competitive Programming',
