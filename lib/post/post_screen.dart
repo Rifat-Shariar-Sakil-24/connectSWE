@@ -25,9 +25,7 @@ class _PostScreenState extends State<PostScreen> {
     final user = this.user;
      String gg="";
     if (user != null) {
-      // Name, email address, and profile photo URL
       gg += user.email.toString();
-
 
     }
     String email1 = gg;
