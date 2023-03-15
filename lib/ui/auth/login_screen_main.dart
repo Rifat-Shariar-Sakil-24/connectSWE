@@ -71,6 +71,7 @@ class _LoginScreenMainState extends State<LoginScreenMain> {
       },
       child: Scaffold(
 
+        //fixitfelix
           resizeToAvoidBottomInset: false,
         backgroundColor: Palette.backgroundColor2,
         /*appBar: AppBar(
