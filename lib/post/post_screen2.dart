@@ -19,6 +19,7 @@ import 'package:flutter/scheduler.dart';
 part 'appointment_editor.dart';
 part 'color_picker.dart';
 part 'course_picker.dart';
+part 'appointment_viewer.dart';
 
 class PostScreen2 extends StatefulWidget {
   const PostScreen2({Key? key}) : super(key: key);
@@ -226,10 +227,16 @@ class _PostScreenState2 extends State<PostScreen2> {
         _startTime =
             TimeOfDay(hour: _startDate.hour, minute: _startDate.minute);
         _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
-        Navigator.push<Widget>(
+        if(1 < 2) {
+          Navigator.push<Widget>(
           context,
           MaterialPageRoute(builder:
-              (BuildContext context) => AppointmentEditor()),);
+              (BuildContext context) => AppointmentEditor()),);}
+        else {
+          Navigator.push<Widget>(
+            context,
+            MaterialPageRoute(builder:
+            (BuildContext context) => AppointmentViewer()),);}
       }
     );
   }
