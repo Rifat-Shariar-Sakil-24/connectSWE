@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../config/palette.dart';
+import '../../post/post_screen2.dart';
 import '../../utils/utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -47,7 +48,7 @@ class _LoginScreenMainState extends State<LoginScreenMain> {
         email: emailController.text.toString(), password: passwordController.text.toString()).then((value) {
       Utils().toastMessage(value.user!.email.toString());
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen2()));
 
       setState(() {
         loading = false;

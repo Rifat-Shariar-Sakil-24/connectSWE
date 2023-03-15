@@ -12,7 +12,7 @@ class AppointmentEditor extends StatefulWidget{
 class AppointmentEditorState extends State<AppointmentEditor>{
   Widget _getAppointmentEditor(BuildContext context){
     return Container(
-      color: Colors.white,
+      color: Palette.backgroundColor,
       child: ListView(
         children: [
 
