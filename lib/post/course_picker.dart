@@ -35,6 +35,7 @@ class _CoursePickerState extends State<_CoursePicker> {
                       _subject = eventNameCollection[index];
                       _selectedColorIndex = index;
                       _courseName = courseNameCollection[index];
+                      _teacherName = teacherNameCollection[index];
                     });
 
                     Future.delayed(const Duration(milliseconds: 200), () {

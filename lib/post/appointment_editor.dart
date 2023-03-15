@@ -12,7 +12,7 @@ class AppointmentEditor extends StatefulWidget{
 class AppointmentEditorState extends State<AppointmentEditor>{
   Widget _getAppointmentEditor(BuildContext context){
     return Container(
-      color: Colors.white,
+      color: Palette.backgroundColor,
       child: ListView(
         children: [
 
@@ -51,6 +51,25 @@ class AppointmentEditorState extends State<AppointmentEditor>{
               color: Colors.black87,
             ),
             title: Text(_courseName == '' ? '(No Title)' : _courseName,
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),),
+          ),
+
+          const Divider(
+            height: 1.0,
+            thickness: 0.5,
+          ),
+
+          ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            leading: const Icon(
+              Icons.person,
+              color: Colors.black87,
+            ),
+            title: Text(_courseName == '' ? '(No Title)' : _teacherName,
               style: const TextStyle(
                 fontSize: 18,
                 color: Colors.black,
@@ -326,12 +345,11 @@ class AppointmentEditorState extends State<AppointmentEditor>{
               ),
             ),
           ),
-
-          new TextButton(
-            onPressed: (){
-              Navigator.of(context).pop();
-            },
-            child: Text('Close'),),
+          // new TextButton(
+          //   onPressed: (){
+          //     Navigator.of(context).pop();
+          //   },
+          //   child: Text('Close'),),
         ],
       ),
     );
@@ -363,7 +381,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     Icons.done,
                     color: Colors.white,),
                   onPressed: () async {
-
+                    //
                     // final Meeting? startTimeAppointment =
                     // _isInterceptExistingAppointments(
                     //     _startDate, _selectedAppointment!);
@@ -371,32 +389,20 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                     // _isInterceptExistingAppointments(
                     //     _endDate, _selectedAppointment!);
                     //
-                    // AlertDialog alert;
                     // if (startTimeAppointment != null ||
                     //     endTimeAppointment != null) {
-                    //   Widget okButton = TextButton(
-                    //     child: const Text("Ok"),
-                    //     onPressed: () {
-                    //       Navigator.pop(context, true);
-                    //     },
+                    //   print('hoise1');
+                    //   showDialog(context: context,
+                    //     builder: (BuildContext context){
+                    //     return AlertDialog(
+                    //       title: Container(
+                    //         child: Text('Conflict shown'),
+                    //       ),
+                    //     );
+                    //     }
                     //   );
-                    //   alert = AlertDialog(
-                    //     title: const Text("Alert"),
-                    //     content: const Text('Have intercept with existing'),
-                    //     actions: [
-                    //       okButton,
-                    //     ],
-                    //   );
-                    //
-                    //   await showDialog<bool>(
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return alert;
-                    //     },
-                    //   );
-                    //
-                    //   return;
                     // }
+                    // print('hoise2');
 
                     final List<Meeting> meetings = <Meeting>[];
                     if (_selectedAppointment != null){
@@ -413,8 +419,10 @@ class AppointmentEditorState extends State<AppointmentEditor>{
                       isAllDay: _isAllDay,
                       eventName: _subject == '' ? '(No Title)' : _subject,
                       courseName: _courseName == '' ? '(No Title)' : _courseName,
+                      teacherName: _teacherName == '' ? '(No Title)' : _teacherName,
                     ));
 
+                    //print('hoise3');
                     _events.appointments!.add(meetings[0]);
 
                     _events.notifyListeners(
@@ -460,8 +468,7 @@ class AppointmentEditorState extends State<AppointmentEditor>{
   dynamic _isInterceptExistingAppointments(
       DateTime date, Meeting selectedAppointment) {
     if (date == null ||
-        _events == null ||
-        _events.appointments == null ||
+        _events == null || _events.appointments == null ||
         _events.appointments!.isEmpty) return null;
     for (int i = 0; i < _events.appointments!.length; i++) {
       var appointment = _events.appointments![i];
