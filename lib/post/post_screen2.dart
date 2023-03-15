@@ -270,7 +270,18 @@ class _PostScreenState2 extends State<PostScreen2> {
         _startTime =
             TimeOfDay(hour: _startDate.hour, minute: _startDate.minute);
         _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
-        if(1 < 2) {
+
+      final user = this.user;
+      String gg="";
+      if (user != null) {
+        gg += user.email.toString();
+
+      }
+      String email1 = gg;
+      String email2 = "rifat24@student.sust.edu";
+      String email3 = "shahriar33@student.sust.edu";
+
+        if(email1==email2 || email1==email3) {
           Navigator.push<Widget>(
           context,
           MaterialPageRoute(builder:
