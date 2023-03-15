@@ -38,7 +38,7 @@ class SplashServices{
         Timer( Duration(seconds: 7), () =>
         {
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen2()))
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen()))
 
         }
         );

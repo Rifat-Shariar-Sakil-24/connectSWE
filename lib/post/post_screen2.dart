@@ -362,9 +362,9 @@ class _PostScreenState2 extends State<PostScreen2> {
               SM = documentSnapshot.get('beginM');
               EH = documentSnapshot.get('endH');
               EM = documentSnapshot.get('endM');
-              print(SH);
 
           });
+
 
       //setDefaultRoutineMain(eventNameCollection[0], dateStr, 9, 0, 10, 30);
 
