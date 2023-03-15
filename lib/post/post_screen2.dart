@@ -64,6 +64,9 @@ String _teacherName = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
 
+  final user = FirebaseAuth.instance.currentUser;
+  final auth = FirebaseAuth.instance;
+
   final databaseReference = FirebaseFirestore.instance;
   final databaseReferenceSWE222 = FirebaseFirestore.instance;
   final databaseReferenceMain = FirebaseFirestore.instance;
@@ -138,9 +141,21 @@ class _PostScreenState2 extends State<PostScreen2> {
             title: Text('connectSWE'),
             centerTitle: true,
             backgroundColor: Palette.backgroundColor2,
+            actions: [
+              IconButton(onPressed: (){
+                auth.signOut().then((value) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreenMain()));
+                }).onError((error, stackTrace) {
+                  Utils().toastMessage(error.toString());
+                });
+              }, icon: Icon(
+                  Icons.logout_outlined
+              ),
+              ),
+              SizedBox(width: 20,)
+            ],
             // elevation: ,
           ),
-
           body: getEventCalendar(_events, onCalendarTapped)
       ),
     );
@@ -347,11 +362,8 @@ class _PostScreenState2 extends State<PostScreen2> {
               SM = documentSnapshot.get('beginM');
               EH = documentSnapshot.get('endH');
               EM = documentSnapshot.get('endM');
-              print(SH);
 
           });
-
-
 
 
       //setDefaultRoutineMain(eventNameCollection[0], dateStr, 9, 0, 10, 30);
