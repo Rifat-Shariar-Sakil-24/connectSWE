@@ -60,6 +60,7 @@ String _subject = '';
 String _notes = '';
 String _courseName = '';
 String _teacherName = '';
+bool flag = false;
 //String _recurrenceRule = '';
 
 class _PostScreenState2 extends State<PostScreen2> {
@@ -93,7 +94,21 @@ class _PostScreenState2 extends State<PostScreen2> {
     _notes = '';
     _courseName = '';
     _teacherName = '';
-    //_recurrenceRule = '';
+
+
+    String gg="";
+    final user = this.user;
+    if (user != null) {
+      gg += user.email.toString();
+    }
+    String email1 = gg;
+    String email2 = "rifat24@student.sust.edu";
+    String email3 = "shahriar33@student.sust.edu";
+
+    if(email1==email2 || email1==email3) flag = true;
+    else flag = false;
+
+      //_recurrenceRule = '';
 
     getDataFromFireStore().then((results) {
       SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -116,6 +131,7 @@ class _PostScreenState2 extends State<PostScreen2> {
 
 
   }
+
   /*Future<DocumentSnapshot> getDocument(String date) async {
     /*DocumentSnapshot documentSnapshot =
     await databaseReferenceSWE222.collection('SWE 222').doc(date).get();
@@ -137,12 +153,13 @@ class _PostScreenState2 extends State<PostScreen2> {
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: AppBar(
-
+            leading: flag? Icon(Icons.edit) : Icon(Icons.panorama_fish_eye_outlined) ,
             automaticallyImplyLeading: false,
             title: Text('connectSWE'),
             centerTitle: true,
             backgroundColor: Palette.backgroundColor2,
             actions: [
+
               IconButton(onPressed: (){
                 auth.signOut().then((value) {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreenMain()));
@@ -283,6 +300,7 @@ class _PostScreenState2 extends State<PostScreen2> {
       String email3 = "shahriar33@student.sust.edu";
 
         if(email1==email2 || email1==email3) {
+
           Navigator.push<Widget>(
           context,
           MaterialPageRoute(builder:
