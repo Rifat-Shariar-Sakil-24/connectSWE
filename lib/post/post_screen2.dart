@@ -137,6 +137,7 @@ class _PostScreenState2 extends State<PostScreen2> {
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: AppBar(
+
             automaticallyImplyLeading: false,
             title: Text('connectSWE'),
             centerTitle: true,
