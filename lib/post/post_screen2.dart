@@ -3,8 +3,10 @@ library calendar;
 import 'dart:math';
 
 import 'package:connectswe/config/palette.dart';
+import 'package:connectswe/post/post_screen3.dart';
 import 'package:connectswe/ui/auth/login_screen.dart';
 import 'package:connectswe/ui/auth/login_screen_main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -38,7 +40,7 @@ late List<String> eventNameCollection = <String>[];
 
 List<String> _colorNames = <String>[];
 
-List<String> eventNameCollection = <String>[];
+
 List<String> courseNameCollection = <String>[];
 
 
@@ -62,6 +64,8 @@ String _courseName = '';
 class _PostScreenState2 extends State<PostScreen2> {
 
   final databaseReference = FirebaseFirestore.instance;
+  final databaseReferenceSWE222 = FirebaseFirestore.instance;
+  final databaseReferenceMain = FirebaseFirestore.instance;
 
   _PostScreenState2();
 
@@ -95,11 +99,27 @@ class _PostScreenState2 extends State<PostScreen2> {
   }
 
   Future<void> getDataFromFireStore() async {
+
     var snapShotsValue = await databaseReference
-        .collection("StoreAllCourses")
+       //.collection("StoreALlCourses")
+        .collection("Courses")
         .get();
+    var snapshots = await databaseReferenceSWE222
+    .collection("SWE 222")
+    .get();
+
+
 
   }
+  /*Future<DocumentSnapshot> getDocument(String date) async {
+    /*DocumentSnapshot documentSnapshot =
+    await databaseReferenceSWE222.collection('SWE 222').doc(date).get();
+    return documentSnapshot;
+    */
+    DocumentSnapshot documentSnapshot =
+    await databaseReferenceSWE222.collection('SWE 222').doc(date).get();
+    return documentSnapshot;
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -246,18 +266,49 @@ class _PostScreenState2 extends State<PostScreen2> {
 
 
         String dateStr = today.add(Duration(days: (month*30) + day)).toString();
-        print(dateStr);
+     //   print(dateStr);
         //monday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 1){
 
-          setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 10, 30);
+       //   setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 10, 30);
+
+         /* databaseReferenceSWE222.collection("SWE 222").doc(dateStr).set({
+            'beginH': 9,
+            'beginM':0,
+            'endH': 10,
+            'endM': 30
+          });*/
 
 
-          String eventStartTimeHours =
-              databaseReference.collection("StoreAllCourses").doc(eventNameCollection[0]).collection("Dates").doc(dateStr).collection("Start").doc("starttime").collection("Hours").
-          doc("hours").id.;
-          print(eventStartTimeHours);
+      // String documentSnapshot =       databaseReference.collection("StoreAllCourses").doc(eventNameCollection[0]).collection("Dates").doc(dateStr).collection("Start").doc("starttime").collection("Hours").
+      //    doc("hours").path.toString();
 
+        //  print(documentSnapshot);
+
+          num SH, SM, EH, EM;
+          String course = eventNameCollection[0];
+
+          FirebaseFirestore.instance
+              .collection('Courses')
+              .doc(course)
+              .collection(dateStr)
+              .doc('Info')
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+
+              print('ashche');
+              SH = documentSnapshot.get('beginH');
+              SM = documentSnapshot.get('beginM');
+              EH = documentSnapshot.get('endH');
+              EM = documentSnapshot.get('endM');
+              print(SH);
+
+          });
+          print(SH);
+
+
+
+      //setDefaultRoutineMain(eventNameCollection[0], dateStr, 9, 0, 10, 30);
 
           meetingCollection.add(Meeting(
             from: today
@@ -277,7 +328,9 @@ class _PostScreenState2 extends State<PostScreen2> {
           ));
 
 
-          setDefaultRoutine(eventNameCollection[2], dateStr, 11, 0, 13, 0);
+
+         // setDefaultRoutine(eventNameCollection[2], dateStr, 11, 0, 13, 0);
+          setDefaultRoutineMain(eventNameCollection[2], dateStr, 11, 0, 13, 0);
 
 
           meetingCollection.add(Meeting(
@@ -295,8 +348,8 @@ class _PostScreenState2 extends State<PostScreen2> {
             //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=10',
           ));
 
-          setDefaultRoutine(eventNameCollection[3], dateStr, 14, 0, 16, 0);
-
+          //setDefaultRoutine(eventNameCollection[3], dateStr, 14, 0, 16, 0);
+          setDefaultRoutineMain(eventNameCollection[3], dateStr, 14, 0, 16, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -319,7 +372,8 @@ class _PostScreenState2 extends State<PostScreen2> {
         //tuesday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 2){
 
-          setDefaultRoutine(eventNameCollection[2], dateStr, 12, 0, 13, 0);
+          //setDefaultRoutine(eventNameCollection[2], dateStr, 12, 0, 13, 0);
+          setDefaultRoutineMain(eventNameCollection[2], dateStr, 12, 0, 13, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -337,7 +391,8 @@ class _PostScreenState2 extends State<PostScreen2> {
           ));
 
 
-          setDefaultRoutine(eventNameCollection[1], dateStr, 14, 0, 15, 0);
+          //setDefaultRoutine(eventNameCollection[1], dateStr, 14, 0, 15, 0);
+          setDefaultRoutineMain(eventNameCollection[1], dateStr, 14, 0, 15, 0);
           meetingCollection.add(Meeting(
             from: today
                 .add(Duration(days: (month * 30) + day))
@@ -356,7 +411,8 @@ class _PostScreenState2 extends State<PostScreen2> {
 
 
 
-          setDefaultRoutine(eventNameCollection[0], dateStr, 15, 0, 17, 0);
+          //setDefaultRoutine(eventNameCollection[0], dateStr, 15, 0, 17, 0);
+          setDefaultRoutineMain(eventNameCollection[0], dateStr, 15, 0, 17, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -379,7 +435,9 @@ class _PostScreenState2 extends State<PostScreen2> {
         if(today.add(Duration(days: (month*30) + day)).weekday == 3){
 
 
-          setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 11, 0);
+          //setDefaultRoutine(eventNameCollection[0], dateStr, 9, 0, 11, 0);
+          setDefaultRoutineMain(eventNameCollection[0], dateStr, 9, 0, 11, 0);
+
 
           meetingCollection.add(Meeting(
             from: today
@@ -398,7 +456,8 @@ class _PostScreenState2 extends State<PostScreen2> {
 
 
 
-          setDefaultRoutine(eventNameCollection[2], dateStr, 14, 0, 17, 0);
+          //setDefaultRoutine(eventNameCollection[2], dateStr, 14, 0, 17, 0);
+          setDefaultRoutineMain(eventNameCollection[2], dateStr, 14, 0, 17, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -420,7 +479,8 @@ class _PostScreenState2 extends State<PostScreen2> {
         //thursday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 4){
 
-          setDefaultRoutine(eventNameCollection[3], dateStr, 10, 30, 12, 30);
+          //setDefaultRoutine(eventNameCollection[3], dateStr, 10, 30, 12, 30);
+          setDefaultRoutineMain(eventNameCollection[3], dateStr, 10, 30, 12, 30);
 
           meetingCollection.add(Meeting(
             from: today
@@ -438,7 +498,8 @@ class _PostScreenState2 extends State<PostScreen2> {
           ));
 
 
-          setDefaultRoutine(eventNameCollection[1], dateStr, 14, 0, 15, 0);
+          //setDefaultRoutine(eventNameCollection[1], dateStr, 14, 0, 15, 0);
+          setDefaultRoutineMain(eventNameCollection[1], dateStr, 14, 0, 15, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -459,7 +520,8 @@ class _PostScreenState2 extends State<PostScreen2> {
 
         //sunday - done
         if(today.add(Duration(days: (month*30) + day)).weekday == 7){
-          setDefaultRoutine(eventNameCollection[1], dateStr, 10, 0, 11, 30);
+          //setDefaultRoutine(eventNameCollection[1], dateStr, 10, 0, 11, 30);
+          setDefaultRoutineMain(eventNameCollection[1], dateStr, 10, 0, 11, 30);
 
           meetingCollection.add(Meeting(
             from: today
@@ -477,7 +539,8 @@ class _PostScreenState2 extends State<PostScreen2> {
           ));
 
 
-          setDefaultRoutine(eventNameCollection[0], dateStr, 12, 0, 13, 0);
+          //setDefaultRoutine(eventNameCollection[0], dateStr, 12, 0, 13, 0);
+          setDefaultRoutineMain(eventNameCollection[0], dateStr, 12, 0, 13, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -497,7 +560,8 @@ class _PostScreenState2 extends State<PostScreen2> {
 
 
 
-          setDefaultRoutine(eventNameCollection[3], dateStr, 15, 0, 16, 0);
+          //setDefaultRoutine(eventNameCollection[3], dateStr, 15, 0, 16, 0);
+          setDefaultRoutineMain(eventNameCollection[3], dateStr, 15, 0, 16, 0);
 
           meetingCollection.add(Meeting(
             from: today
@@ -568,6 +632,17 @@ class _PostScreenState2 extends State<PostScreen2> {
         {
           'index' : 3
         }
+    );
+
+  }
+
+  void setDefaultRoutineMain(String eInd, String  dateString, int SH, int SM, int EH, int EM) {
+    databaseReferenceMain.collection("Courses").doc(eInd).collection(dateString).doc('Info').set({
+      'beginH': SH,
+      'beginM': SM,
+      'endH': EH,
+      'endM': EM
+    }
     );
 
   }

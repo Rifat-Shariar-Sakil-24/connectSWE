@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../config/palette.dart';
 import '../../post/post_screen.dart';
+import '../../post/post_screen2.dart';
 import '../../utils/utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -44,7 +45,7 @@ class _SignupScreenMainState extends State<SignupScreenMain> {
         email: emailController.text.toString(),
         password: passwordController.text.toString()
     ).then((value) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen2()));
       setState(() {
         loading = false;
       });
