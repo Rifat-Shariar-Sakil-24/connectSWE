@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1044864431167",
-    "project_id": "connectswe-9ce91",
-    "storage_bucket": "connectswe-9ce91.appspot.com"
+    "project_number": "896258232171",
+    "project_id": "connectswe-8def1",
+    "storage_bucket": "connectswe-8def1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1044864431167:android:ad033546cdc93f27fd348a",
+        "mobilesdk_app_id": "1:896258232171:android:661091fe5fd236720b862e",
         "android_client_info": {
           "package_name": "com.example.connectswe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1044864431167-6sh6niqbkf97l94uegthoa2d7jpaarof.apps.googleusercontent.com",
+          "client_id": "896258232171-hc3drh20nhu07ng26e3q1fquvr0j0be5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmcXH-63dA34cjqZZCGYgSpjY3PxkviBs"
+          "current_key": "AIzaSyCgs8sg63dLzoKbN7oqf6XBub_QBmUFnJY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1044864431167-6sh6niqbkf97l94uegthoa2d7jpaarof.apps.googleusercontent.com",
+              "client_id": "896258232171-hc3drh20nhu07ng26e3q1fquvr0j0be5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

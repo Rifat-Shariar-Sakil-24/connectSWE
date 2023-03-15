@@ -9,6 +9,7 @@ import 'package:connectswe/ui/auth/login_screen_main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:intl/intl.dart';
 import '../utils/utils.dart';
@@ -124,17 +125,24 @@ class _PostScreenState2 extends State<PostScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text('connectSWE'),
-          centerTitle: true,
-          backgroundColor: Palette.backgroundColor2,
-          // elevation: ,
-        ),
+    return WillPopScope(
+      onWillPop: ()async{
+        SystemNavigator.pop();
+        return true;
+      },
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text('connectSWE'),
+            centerTitle: true,
+            backgroundColor: Palette.backgroundColor2,
+            // elevation: ,
+          ),
 
-        body: getEventCalendar(_events, onCalendarTapped)
+          body: getEventCalendar(_events, onCalendarTapped)
+      ),
     );
   }
 
@@ -342,7 +350,7 @@ class _PostScreenState2 extends State<PostScreen2> {
               print(SH);
 
           });
-          print(SH);
+
 
 
 
